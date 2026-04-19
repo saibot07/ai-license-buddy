@@ -21,9 +21,17 @@ def explain_license(license_name):
 
 def main():
     print("Welcome to AI License Buddy!")
-    usage = input("What's the primary use of your project?  (e.g., personal use, commercial use, community-driven): ").strip()
-    allow_modifications = input("Do you want to allow modifications? (yes/no): ").strip().lower() == "yes"
-    same_license = input("Should modifications retain the same license? (yes/no): ").strip().lower() == "yes"
+
+    # Replacing input statements to handle EOFError during testing or non-interactive environments
+    try:
+        usage = input("What's the primary use of your project?  (e.g., personal use, commercial use, community-driven): ").strip()
+        allow_modifications = input("Do you want to allow modifications? (yes/no): ").strip().lower() == "yes"
+        same_license = input("Should modifications retain the same license? (yes/no): ").strip().lower() == "yes"
+    except EOFError:
+        print("Error: Input was not provided. Using default values for testing.")
+        usage = "personal"
+        allow_modifications = False
+        same_license = True
 
     license_name = recommend_license(usage, allow_modifications, same_license)
     explanation = explain_license(license_name)
