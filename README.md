@@ -1,37 +1,45 @@
 # AI License Buddy
 
-AI License Buddy is a Python CLI tool that helps developers choose the most suitable open-source license for their projects by analyzing the given project details and preferences.
+## Description
+AI License Buddy is a Python CLI tool that recommends the best open-source license for your software projects based on user input.
 
-## Features
-- Simple command-line interface.
-- Provides tailored license recommendations.
-- Includes descriptive explanations of each recommended license.
-- Compatible with Python 3.7 and later.
+## Setup
 
-## Installation
+1. Clone the repository:
 ```bash
-pip install ai-license-buddy
+git clone https://github.com/saibot07/ai-license-buddy.git
+cd ai-license-buddy
+```
+2. Install dependencies (Python 3.7+ required):
+```bash
+pip install -r requirements.txt
 ```
 
 ## Usage
+Run the application interactively:
 ```bash
 python main.py
 ```
 
-Follow the prompts and answer questions about your project and preferences. You'll receive a detailed recommendation!
-
-## Example
+Use optional arguments:
 ```bash
-> python main.py
-What's the primary use of your project?  (e.g., personal use, commercial use, community-driven): community-driven
-Do you want to allow modifications? (yes/no): yes
-Should modifications retain the same license? (yes/no): no
-Recommended License: MIT License
-Explanation: The MIT License is short, permissive, and community-friendly.
+python main.py --noninteractive
+```
+
+## Testing
+To run tests, use:
+```bash
+pytest
 ```
 
 ## Contributing
-Contributions are welcome! Submit issues, feature requests, or pull requests on the [GitHub repository](https://github.com/saibot07/ai-license-buddy) to participate.
+1. Fork the repository and create a feature branch.
+2. Adjust the code.
+3. Submit a PR with clear descriptions.
 
-## License
-This project is licensed under the MIT License.
+## Supported Licenses
+- MIT License
+- GPLv3
+- Apache 2.0
+- BSD 3-Clause
+- Non-Commercial Creative Commons

@@ -1,43 +1,26 @@
-import json
-
-def recommend_license(usage, allow_modifications, same_license):
-    if usage == "commercial" and allow_modifications and not same_license:
-        return "Apache License 2.0"
-    elif usage == "community-driven" and allow_modifications:
-        return "MIT License"
-    elif usage == "personal" and not allow_modifications:
-        return "All Rights Reserved"
-    else:
-        return "GPL-3.0 License"
-
-def explain_license(license_name):
-    explanations = {
-        "Apache License 2.0": "A permissive license allowing commercial use with proper attribution.",
-        "MIT License": "A simple and permissive license allowing wide freedom of use.",
-        "All Rights Reserved": "No permissions are granted to others for use, distribution, or modification.",
-        "GPL-3.0 License": "A strong copyleft license requiring open-source derivations."
-    }
-    return explanations.get(license_name, "No explanation available.")
+import argparse
+from license_recommender.logic import recommend_license
+from license_recommender.utils import handle_input_error
 
 def main():
-    print("Welcome to AI License Buddy!")
+    parser = argparse.ArgumentParser(description="AI License Buddy: Recommend the best open-source license for your project.")
+    parser.add_argument("--noninteractive", action="store_true", help="Run in non-interactive mode with predefined inputs.")
+    args = parser.parse_args()
 
-    # Replacing input statements to handle EOFError during testing or non-interactive environments
+    if args.noninteractive:
+        print("Non-interactive mode is not yet implemented.")
+        return
+
     try:
-        usage = input("What's the primary use of your project?  (e.g., personal use, commercial use, community-driven): ").strip()
-        allow_modifications = input("Do you want to allow modifications? (yes/no): ").strip().lower() == "yes"
-        same_license = input("Should modifications retain the same license? (yes/no): ").strip().lower() == "yes"
-    except EOFError:
-        print("Error: Input was not provided. Using default values for testing.")
-        usage = "personal"
-        allow_modifications = False
-        same_license = True
+        print("Welcome to AI License Buddy!")
+        project_type = input("What type of project is this? (e.g., library, application)\n")
+        allow_modifications = input("Do you want to allow modifications? (yes/no)\n")
+        commercial_use = input("Is commercial use allowed? (yes/no)\n")
 
-    license_name = recommend_license(usage, allow_modifications, same_license)
-    explanation = explain_license(license_name)
-
-    print(f"\nRecommended License: {license_name}")
-    print(f"Explanation: {explanation}")
+        result = recommend_license(project_type, allow_modifications, commercial_use)
+        print(f"Recommended License: {result}")
+    except Exception as e:
+        handle_input_error(e)
 
 if __name__ == "__main__":
     main()
